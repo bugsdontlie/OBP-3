@@ -32,6 +32,17 @@ for (let i = 0; i < n; i++) {
 console.log("Primary Diagonal Sum: ", sum);
 
 //secondary diagonal -> i + j == n - 1
+/* 
+PSEUDO CODE 
+
+itialize a variable with value zero, to store the sum of diagonal elements 
+
+it is observed that, all secondary diagonal elements lie on the indices 
+whose sum of row & col is equal to n-1 where n is number of rows i+j = n-1 (define i = , j = )
+we can loop from first to last index and find the sum of diagonal by adding arr[i][n-i-1] to sum as 
+this is simplified from above formula of ... and so on...
+
+*/
 sum = 0;
 for (let i = 0; i < n; i++) {
   sum += arr[i][n - i - 1];
