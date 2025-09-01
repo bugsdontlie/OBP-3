@@ -215,13 +215,13 @@ addSkill(skillName) → a method that adds a new skill to the skills array.
 const portfolio = {
   name: "Piyush",
   skills: ["Javascript", "HTML", "CSS"],
-  showSkills: function showSkills () {
+  showSkills: function () {
     let allSkills = "";
     for(let skill of this.skills)
       allSkills += skill + ", ";
     console.log(allSkills);
   },
-  addSkills: function addSkills(skill){
+  addSkills: function(skill) {
     this.skills.push(skill);
   }
 }
@@ -229,6 +229,11 @@ const portfolio = {
 portfolio.showSkills();
 portfolio.addSkills("React");
 portfolio.showSkills();
+
+/* NOTE
+ - key-value pairs inside objects are often know as data members
+ - functions inside objects are often known as methods
+*/
 
 /* 
 - open your MERN folder in integrated terminal
