@@ -2,7 +2,7 @@
 
 /* Time & Space Complexities - Refer Onenote */
 
-let obj = {
+var obj = {
   a: {
     c: 1,
     d: 2
