@@ -129,7 +129,6 @@ console.log(factorial(2));
 console.log(factorial(6));
 
 /*  Print numbers from 1 to N */
-
 function print1toN(N) {
   if (N == 0) {
     return;
@@ -140,7 +139,6 @@ function print1toN(N) {
 
 
 /* Print numbers from N to 1 */
-
 function printNto1(N) {
   if (N == 0) {
     return;
