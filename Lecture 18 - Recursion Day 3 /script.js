@@ -62,7 +62,7 @@ function swapStr(str, i, j) {
   return arr.join("");
 }
 
-/* T.C -> ~O(N^N) */
+/* T.C -> ~O(N!) */
 let strPermutations = [];
 function permutations(str, ind = 0) {
   if (ind == str.length - 1) {
