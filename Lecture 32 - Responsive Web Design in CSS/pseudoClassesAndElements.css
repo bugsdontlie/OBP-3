@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin-bottom: 500px;
+}
+
+div > div {
+  width: 300px;
+  height: 400px;
+  background-color: yellow;
+  margin: 100px auto;
+}
+
+div div:last-child {
+  background-color: red;
+}
+
+.child:active {
+  background-color: beige;
+}
+
+.child:hover {
+  border: 1px solid red;
+}
+
+.elements p::before {
+  content: "Vaibhav";
+}
+
+.elements p::first-letter {
+  content: "";
+  color: red;
+}
+
+.elements p::first-line {
+  content: "";
+  color: green;
+}

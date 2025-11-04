@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div {
+  text-align: center;
+}
+
+div > div {
+  display: inline-block;
+  width: 300px;
+  height: 400px;
+  background-color: yellow;
+}
+
+.linear div:nth-of-type(1) {
+  background: linear-gradient(red, blue);
+}
+
+.linear div:nth-of-type(2) {
+  background: linear-gradient(to right, red, green, blue);
+}
+
+.linear div:last-of-type {
+  background: linear-gradient(120deg, red, green, blue);
+}
+
+.radial div:nth-of-type(1) {
+  background: radial-gradient(red, blue, green);
+}
+
+.radial div:nth-of-type(2) {
+  background: radial-gradient(farthest-side, red, blue, green);
+}
+
+.radial div:nth-of-type(3) {
+  background: radial-gradient(closest-side, red, blue, green);
+}
+
+.conic div:nth-of-type(1) {
+  background: conic-gradient(red, blue, green, yellow, orange);
+}
