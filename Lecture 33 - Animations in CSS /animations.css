@@ -1,0 +1,49 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  gap: 12px;
+  height: 100vh;
+}
+
+.circle {
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: blue;
+  margin: 50% auto;
+  animation-name: bounce;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(0, -300px);
+  }
+}
+.circle1 {
+  animation-delay: 1s;
+}
+.circle2 {
+  animation-delay: 2s;
+}
+.circle3 {
+  animation-delay: 3s;
+}
+.circle4 {
+  animation-delay: 4s;
+}
+.circle5 {
+  animation-delay: 5s;
+}
