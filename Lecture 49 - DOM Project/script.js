@@ -140,11 +140,9 @@ class Quiz {
     this.timer = setInterval(() => {
       remainingTime--;
       const hr = String(Math.floor(remainingTime / 3600)).padStart(2, "0");
-      const min = String(Math.floor((remainingTime / 60) % 60)).padStart(
-        2,
-        "0"
-      );
+      const min = String(Math.floor((remainingTime / 60) % 60)).padStart(2,"0");
       const sec = String(Math.floor(remainingTime % 60)).padStart(2, "0");
+      
       timerElement.textContent = `${hr}:${min}:${sec}`;
 
       if (remainingTime <= 0) {
