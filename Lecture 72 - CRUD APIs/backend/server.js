@@ -21,6 +21,7 @@ const books = [
       "A blueprint for building successful enterprises through continuous innovation and validated learning.",
     author: "Eric Ries",
     status: "unread",
+    readers: ["vaibhav@gmail.com"],
   },
   {
     id: 3,
@@ -71,11 +72,25 @@ app.post("/books", (req, res) => {
 });
 
 app.put("/books/:id", (req, res) => {
-  const updatedStatus = req.body.status;
+  const { status, email } = req.body.status;
   const id = req.params.id;
   const bookInd = books.findIndex((book) => book.id == id);
-  books[bookInd].status = updatedStatus;
+  if (status) books[bookInd].status = status;
+  if (email) books[bookInd].email = email;
   res.status(204).json();
+});
+
+app.patch("/books/:id", (req, res) => {
+  const { email } = req.body;
+  const { id } = req.params;
+
+  const bookInd = books.findIndex((book) => book.id == id);
+
+  if (!books[bookInd].hasOwnKey("readers")) {
+    books[bookInd].readers = [email];
+    res.send("Email added succesfully");
+  }
+  res.send("this book already has some users, please use PUT API");
 });
 
 app.delete("/books/:id", (req, res) => {
