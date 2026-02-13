@@ -2,15 +2,15 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import App from "./Lecture 74 - Context APIs/App";
-import { ThemeProvider } from "./Lecture 74 - Context APIs/context/ThemeContext";
+import AllContexts from "./Lecture 75 - Context API Advanced/context/AllContexts";
+import App from "./Lecture 75 - Context API Advanced/App";
 
 createRoot(document.getElementById("root")).render(
-  <ThemeProvider>
+  <AllContexts>
     <BrowserRouter>
       <StrictMode>
         <App />
       </StrictMode>
     </BrowserRouter>
-  </ThemeProvider>
+  </AllContexts>,
 );
