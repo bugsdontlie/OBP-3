@@ -32,6 +32,10 @@ export function ProductProvider({ children }) {
   function removeFromCart(productId) {
     //check if this product is already in cart
     const productIdx = cart.findIndex((product) => product.id == productId);
+    if (productIdx != -1) {
+      cart.splice(productIdx, 1);
+    }
+    setCart((cart) => cart.map((item) => item));
   }
 
   useEffect(() => {
@@ -45,7 +49,9 @@ export function ProductProvider({ children }) {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, addToCart, cart }}>
+    <ProductContext.Provider
+      value={{ products, addToCart, cart, removeFromCart }}
+    >
       {children}
     </ProductContext.Provider>
   );
