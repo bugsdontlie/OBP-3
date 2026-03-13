@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const communitySchema = mongoose.Schema({
+const communitySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -20,6 +20,9 @@ const communitySchema = mongoose.Schema({
   category: {
     type: String,
     enum: ["chess", "mern", "cooking", "tech", "jobs", "sports", "politics"],
-    required: true
+    required: true,
   },
 });
+
+const Community = mongoose.model("community", communitySchema);
+export default Community;

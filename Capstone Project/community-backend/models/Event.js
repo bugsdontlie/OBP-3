@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const eventSchema = mongoose.Schema({
+const eventSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -31,3 +31,6 @@ const eventSchema = mongoose.Schema({
     required: true,
   },
 });
+
+const Event = mongoose.model("event", eventSchema);
+export default Event;
