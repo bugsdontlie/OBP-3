@@ -65,18 +65,12 @@ const productReducer = (state = initialProductState, action) => {
     case BUY_BOTTLE:
       return {
         ...state,
-        boughtProducts: [
-          ...state.boughtProducts,
-          state.products[0],
-        ],
+        boughtProducts: [...state.boughtProducts, state.products[0]],
       };
     case BUY_SHIRT:
       return {
         ...state,
-        boughtProducts: [
-          ...state.boughtProducts,
-          state.products[1],
-        ],
+        boughtProducts: [...state.boughtProducts, state.products[1]],
       };
 
     default:
@@ -163,7 +157,21 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 const unsubscribe = store.subscribe(() => {
-  console.log(store.getState());
+  const state = store.getState();
+  console.log(
+    "state",
+    state,
+    "\n",
+    "\n",
+    "\n",
+    "amazon",
+    state.amazon,
+    "\n",
+    "\n",
+    "\n",
+    "count_app",
+    state.count_app,
+  );
 });
 
 store.dispatch(incrementAction(10)); //10
