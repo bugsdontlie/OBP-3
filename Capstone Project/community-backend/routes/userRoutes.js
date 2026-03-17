@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.post("/register", userController.register);
 router.get("/login", userController.login);
-router.get("/me", authMiddleware, userController.profile)
+router.patch("/join-community", authMiddleware, userController.joinCommunity);
+router.patch("/make-host", authMiddleware, userController.makeHost);
+// router.get("/me", authMiddleware, userController.profile)
 
 export default router;

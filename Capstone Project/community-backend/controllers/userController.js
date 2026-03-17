@@ -60,18 +60,54 @@ const login = async (req, res) => {
   }
 };
 
-const profile = (req, res) => {
+const joinCommunity = async (req, res) => {
   try {
-    if (!req.user) throw new Error("user not found, maybe invalid token");
-    res.json({ user: req.user });
-  } catch (error) {
-    console.log(error);
-    res.json({ error: error.message });
+    const { communityId } = req.query;
+
+    await userService.joinCommunity({ userId: req.user._id, communityId });
+
+    res.json({
+      data: {
+        message: "user has successfully joined the community",
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to add user in community",
+        info: err.message,
+      },
+    });
+  }
+};
+
+const makeHost = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    await userService.makeHost(userId);
+    res.json({
+      data: {
+        message: "user role changed to host",
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to upgrade user to host",
+        info: err.message,
+      },
+      data: null,
+    });
   }
 };
 
 export default {
   register,
   login,
-  profile,
+  joinCommunity,
+  makeHost,
 };

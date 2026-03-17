@@ -1,6 +1,8 @@
 import User from "../models/User.js";
+import Community from "../models/Community.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 const registerUser = async ({ name, email, password }) => {
   const inputErrors = [];
@@ -75,4 +77,32 @@ const loginUser = async ({ email, password }) => {
   return { token, user };
 };
 
-export default { registerUser, loginUser };
+const joinCommunity = async ({ userId, communityId }) => {
+  if (!communityId) {
+    throw new Error("community id is not valid");
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(communityId))
+    throw new Error("communityId is not a valid ObjectId");
+
+  const existingCommunity = await Community.findById(communityId);
+  if (!existingCommunity) {
+    throw new Error("community id is not valid");
+  }
+
+  //if user already exists in community??
+
+  await User.findByIdAndUpdate(userId, {
+    $addToSet: {
+      joinedCommunities: communityId,
+    },
+  });
+};
+
+const makeHost = async (userId) => {
+  await User.findByIdAndUpdate(userId, {
+    $set: { role: "host" },
+  });
+};
+
+export default { registerUser, loginUser, joinCommunity, makeHost };
