@@ -19,11 +19,32 @@ const createCommunity = async ({ name, description, host, category }) => {
 };
 
 const getAllCommunities = async () => {
-  const communities = await Community.find().lean(); //lean() is just converting mongoose object to plain JS object
+  //lean() is just converting mongoose object to plain JS object
+  const communities = await Community.find().lean();
   return communities;
+};
+
+const getSpecificCommunity = async (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("community id is not valid");
+
+  // const community = await Community.findById(id).populate("host", "name -_id");
+  const community = await Community.findById(id)
+    .populate({
+      path: "host",
+      select: "name -_id",
+    })
+    .lean();
+
+  /* 
+  IF WE WANT TO MANIPULATE DATA, WE CAN DO THAT
+  community.host = community.host.name; */
+
+  return community;
 };
 
 export default {
   createCommunity,
   getAllCommunities,
+  getSpecificCommunity,
 };
