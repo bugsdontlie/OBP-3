@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDb from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import communityRoutes from "./routes/communityRoutes.js";
+import eventRoutes from "./routes/eventRoutes.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -21,11 +22,11 @@ connectDb(MONGO_URI);
 
 app.use("/api/user", userRoutes);
 app.use("/api/community", communityRoutes);
+app.use("/api/event", eventRoutes);
 
 app.listen(PORT, () => {
   console.log("Server is listening to PORT: ", PORT);
 });
-
 
 /* 
 

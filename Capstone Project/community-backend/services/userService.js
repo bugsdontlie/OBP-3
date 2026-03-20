@@ -60,7 +60,6 @@ const loginUser = async ({ email, password }) => {
   if (!existingUser) {
     throw new Error(`user with this email (${email}) doesn't exists`);
   }
-  console.log("password", existingUser.hashedPassword);
 
   const validPassword = await bcrypt.compare(
     password,

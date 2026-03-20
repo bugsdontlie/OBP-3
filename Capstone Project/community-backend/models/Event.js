@@ -30,6 +30,9 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  capacity: {
+    type: Number,
+  },
 });
 
 const Event = mongoose.model("event", eventSchema);
