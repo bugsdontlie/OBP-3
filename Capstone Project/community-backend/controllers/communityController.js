@@ -81,8 +81,33 @@ const getSpecificCommunity = async (req, res) => {
   }
 };
 
+const getCommunityWithMembers = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const community = await communityService.getCommunityWithMembers(id);
+
+    res.json({
+      data: {
+        message: "community with all members fetched successfully",
+        community,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      data: null,
+      error: {
+        message: "failed to get community details with memebers",
+        info: err.message,
+      },
+    });
+  }
+};
+
 export default {
   createCommunity,
   getAllCommunities,
   getSpecificCommunity,
+  getCommunityWithMembers,
 };

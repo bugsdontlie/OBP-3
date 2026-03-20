@@ -15,5 +15,5 @@ router.post(
 
 router.get("/all", communityController.getAllCommunities);
 router.get("/specific", communityController.getSpecificCommunity);
-
+router.get("/with-members", communityController.getCommunityWithMembers)
 export default router;
