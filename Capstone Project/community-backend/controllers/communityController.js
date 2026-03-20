@@ -2,7 +2,9 @@ import communityService from "../services/communityService.js";
 
 const createCommunity = async (req, res) => {
   try {
-    const { name, description, host, category } = req.body;
+    const { name, description, category } = req.body;
+    const host = req.user._id;
+    
     await communityService.createCommunity({
       name,
       description,
