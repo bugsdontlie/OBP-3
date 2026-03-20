@@ -18,6 +18,12 @@ const createCommunity = async ({ name, description, host, category }) => {
   await new Community({ name, description, host, category }).save();
 };
 
+const getAllCommunities = async () => {
+  const communities = await Community.find().lean(); //lean() is just converting mongoose object to plain JS object
+  return communities;
+};
+
 export default {
   createCommunity,
+  getAllCommunities,
 };

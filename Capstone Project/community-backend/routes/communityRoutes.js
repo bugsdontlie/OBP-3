@@ -13,6 +13,6 @@ router.post(
   communityController.createCommunity,
 );
 
-router.post("/join", (req, res) => {});
+router.get("/all", communityController.getAllCommunities);
 
 export default router;

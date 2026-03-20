@@ -4,7 +4,7 @@ const createCommunity = async (req, res) => {
   try {
     const { name, description, category } = req.body;
     const host = req.user._id;
-    
+
     await communityService.createCommunity({
       name,
       description,
@@ -29,6 +29,32 @@ const createCommunity = async (req, res) => {
   }
 };
 
+const getAllCommunities = async (req, res) => {
+  try {
+    //call the service
+    const communities = await communityService.getAllCommunities();
+
+    res.json({
+      data: {
+        message: "successfully fetched all communities",
+        communities,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+
+    res.json({
+      error: {
+        message: "failed to get all communities",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
 export default {
   createCommunity,
+  getAllCommunities,
 };
