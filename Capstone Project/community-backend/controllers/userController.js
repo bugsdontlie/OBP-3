@@ -151,6 +151,30 @@ const leaveCommunity = async (req, res) => {
   }
 };
 
+const dashboard = async (req, res) => {
+  try {
+    const { _id: id } = req.user;
+    const dashboard = await userService.dashboard(id);
+
+    res.json({
+      data: {
+        message: "successfully fetched the member dashboard",
+        dashboard,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to fetch the member dashboard",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
 export default {
   register,
   login,
@@ -158,4 +182,5 @@ export default {
   makeHost,
   profile,
   leaveCommunity,
+  dashboard,
 };

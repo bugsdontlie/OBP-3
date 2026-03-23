@@ -14,5 +14,9 @@ router.patch(
   authMiddleware,
   userController.leaveCommunity,
 );
+/* Dashboard means member dashboard */
+/* HostDashboard means host dashboard */
+router.get("/dashboard", authMiddleware, userController.dashboard);
+//router.get("/host/dashboard")// will be used for host dashboard
 
 export default router;

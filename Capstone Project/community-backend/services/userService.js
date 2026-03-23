@@ -120,10 +120,27 @@ const leaveCommunity = async ({ id, userId }) => {
   });
 };
 
+const dashboard = async (id) => {
+  const dashboard = await User.findById(id)
+    .select("name role joinedCommunities rsvpedEvents")
+    .populate({ path: "joinedCommunities", select: "name category" })
+    .populate({
+      path: "rsvpedEvents",
+      select: "name city time mode",
+      populate: {
+        path: "communityId",
+        select: "name",
+      },
+    });
+
+  return dashboard;
+};
+
 export default {
   registerUser,
   loginUser,
   joinCommunity,
   makeHost,
   leaveCommunity,
+  dashboard,
 };
