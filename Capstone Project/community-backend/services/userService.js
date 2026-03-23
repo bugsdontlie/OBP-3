@@ -104,4 +104,26 @@ const makeHost = async (userId) => {
   });
 };
 
-export default { registerUser, loginUser, joinCommunity, makeHost };
+const leaveCommunity = async ({ id, userId }) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("given id is not a valid mongoose id");
+
+  //checking if this community actually exists or not
+  const community = await Community.findById(id);
+
+  if (!community) throw new Error("no community exists with this id");
+
+  await User.findByIdAndUpdate(userId, {
+    $pull: {
+      joinedCommunities: id,
+    },
+  });
+};
+
+export default {
+  registerUser,
+  loginUser,
+  joinCommunity,
+  makeHost,
+  leaveCommunity,
+};

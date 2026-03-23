@@ -127,10 +127,35 @@ const profile = (req, res) => {
   }
 };
 
+const leaveCommunity = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { _id: userId } = req.user; //using _id with name userId i.e., (userId = req.user._id)
+    await userService.leaveCommunity({ userId, id });
+
+    res.json({
+      data: {
+        message: "user left the community successfully",
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to remove user from this community",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
 export default {
   register,
   login,
   joinCommunity,
   makeHost,
   profile,
+  leaveCommunity,
 };

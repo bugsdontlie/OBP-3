@@ -8,6 +8,11 @@ router.post("/register", userController.register);
 router.get("/login", userController.login);
 router.patch("/join-community", authMiddleware, userController.joinCommunity);
 router.patch("/make-host", authMiddleware, userController.makeHost);
-router.get("/me", authMiddleware, userController.profile)
+router.get("/me", authMiddleware, userController.profile);
+router.patch(
+  "/leave-community/:id",
+  authMiddleware,
+  userController.leaveCommunity,
+);
 
 export default router;
