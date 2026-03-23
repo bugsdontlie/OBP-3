@@ -64,7 +64,29 @@ const getAllEvents = async (req, res) => {
   }
 };
 
+const getSpecificEvent = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const event = await eventService.getSpecificEvent(id);
+
+    res.json({
+      data: { message: "event fetched successfully", event },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      data: null,
+      error: {
+        message: "failed to fetch event from event id",
+        info: err.message,
+      },
+    });
+  }
+};
+
 export default {
   createEvent,
   getAllEvents,
+  getSpecificEvent,
 };

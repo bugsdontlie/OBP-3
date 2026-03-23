@@ -14,4 +14,6 @@ router.post(
 
 router.get("/all", eventController.getAllEvents);
 
+router.get("/specific", eventController.getSpecificEvent);
+
 export default router;

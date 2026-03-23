@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Community from "../models/Community.js";
 import Event from "../models/Event.js";
 
@@ -79,8 +80,23 @@ const getAllEvents = async ({ city, keyword }) => {
   return await Event.find(filter);
 };
 
+const getSpecificEvent = async (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("given object id is not a valid mongoose object id");
+
+  const event = await Event.findById(id).populate({
+    path: "communityId",
+    select: "name host",
+    populate: { path: "host", select: "name" },
+  });
+
+  if (!event) throw new Error("no event found with given id");
+
+  return event;
+};
 
 export default {
   createEvent,
   getAllEvents,
+  getSpecificEvent,
 };
