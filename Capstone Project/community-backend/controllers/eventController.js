@@ -39,6 +39,32 @@ const createEvent = async (req, res) => {
   }
 };
 
+const getAllEvents = async (req, res) => {
+  try {
+    const { city, keyword } = req.query;
+
+    const events = await eventService.getAllEvents({ city, keyword });
+
+    res.json({
+      data: {
+        message: "successfully fetched the list of filtered events",
+        events,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+
+    res.json({
+      data: null,
+      error: {
+        message: "unable to fetch list of filtered events",
+      },
+    });
+  }
+};
+
 export default {
   createEvent,
+  getAllEvents,
 };

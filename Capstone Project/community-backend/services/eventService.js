@@ -63,6 +63,24 @@ const createEvent = async ({
   await event.save();
 };
 
+const getAllEvents = async ({ city, keyword }) => {
+  const filter = {
+    time: { $gte: new Date() },
+  };
+
+  if (city) filter.city = { $regex: city, $options: "i" };
+
+  if (keyword)
+    filter.$or = [
+      { name: { $regex: keyword, $options: "i" } },
+      { description: { $regex: keyword, $options: "i" } },
+    ];
+
+  return await Event.find(filter);
+};
+
+
 export default {
   createEvent,
+  getAllEvents,
 };
