@@ -105,9 +105,36 @@ const getCommunityWithMembers = async (req, res) => {
   }
 };
 
+const deleteCommunity = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { _id: userId } = req.user;
+    console.log({ id });
+
+    await communityService.deleteCommunity({ id, userId });
+
+    res.json({
+      data: {
+        message: "community deleted successfully",
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "unable to delete this community",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
 export default {
   createCommunity,
   getAllCommunities,
   getSpecificCommunity,
   getCommunityWithMembers,
+  deleteCommunity,
 };

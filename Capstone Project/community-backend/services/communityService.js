@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Community from "../models/Community.js";
 import User from "../models/User.js";
+import Event from "../models/Event.js";
 
 const createCommunity = async ({ name, description, host, category }) => {
   const inputErrors = [];
@@ -75,11 +76,35 @@ const getCommunityWithMembers = async (id) => {
   return community;
 };
 
+const deleteCommunity = async ({ id, userId }) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("given community id is not valid");
+
+  const community = await Community.findById(id).lean();
+  console.log({ community });
+
+  if (community?.host.toString() != userId.toString())
+    throw new Error("current user is not the host of this community");
+
+  if (!community) throw new Error("no community exists with this id");
+
+  await Community.findByIdAndDelete(id);
+
+  await Event.deleteMany({ communityId: id });
+
+  await User.updateMany(
+    { joinedCommunities: id },
+    {
+      $pull: { joinedCommunities: id },
+    },
+  );
+  
+};
+
 export default {
   createCommunity,
   getAllCommunities,
   getSpecificCommunity,
   getCommunityWithMembers,
+  deleteCommunity,
 };
-
-["cricket", "chess"];
