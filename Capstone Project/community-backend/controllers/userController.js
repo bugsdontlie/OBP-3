@@ -105,9 +105,32 @@ const makeHost = async (req, res) => {
   }
 };
 
+const profile = (req, res) => {
+  try {
+    if (!req.user)
+      throw new Error("user not found from token, please login/signup again");
+    res.json({
+      data: {
+        message: "user details fetched successfully",
+        user: req.user,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "unable to find user details",
+        info: err.message,
+      },
+    });
+  }
+};
+
 export default {
   register,
   login,
   joinCommunity,
   makeHost,
+  profile,
 };
