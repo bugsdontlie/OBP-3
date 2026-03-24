@@ -175,6 +175,78 @@ const dashboard = async (req, res) => {
   }
 };
 
+const getHostDashboard = async (req, res) => {
+  try {
+    const { _id: id } = req.user;
+    const dashboard = await userService.getHostDashboard(id);
+
+    res.json({
+      data: {
+        message: "host dashboard fetched successfully",
+        dashboard,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to fetch host dashboard",
+        info: err.message,
+      },
+    });
+  }
+};
+
+const toggleRSVP = async (req, res) => {
+  try {
+    const user = req.user;
+    const { eventId } = req.query;
+
+    await userService.toggleRSVP({ user, eventId });
+
+    res.json({
+      error: null,
+      data: {
+        message: "successfully toggled the RSVP for this event",
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to toggle RSVP for this event",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
+const logout = (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      sameSite: "lax",
+    });
+
+    res.json({
+      data: {
+        message: "user logged out successfully",
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to logout user",
+        info: err.message,
+      },
+    });
+  }
+};
+
 export default {
   register,
   login,
@@ -183,4 +255,7 @@ export default {
   profile,
   leaveCommunity,
   dashboard,
+  getHostDashboard,
+  toggleRSVP,
+  logout,
 };

@@ -136,6 +136,43 @@ const dashboard = async (id) => {
   return dashboard;
 };
 
+const getHostDashboard = async (id) => {
+  const hostDashboard = await User.findById(id)
+    .select("name role joinedCommunities rsvpedEvents")
+    .populate({
+      path: "joinedCommunities",
+      select: "name category",
+    })
+    .populate({
+      path: "rsvpedEvents",
+      select: "name city time mode",
+      populate: {
+        path: "communityId",
+        select: "name",
+      },
+    })
+    .lean();
+
+  const hostedCommunities = await Community.find({ host: id });
+
+  hostDashboard.hostedCommunities = hostedCommunities;
+
+  return hostDashboard;
+};
+
+const toggleRSVP = async ({ user, eventId }) => {
+  const isEventAlreadyRSVPed = user.rsvpedEvents.includes(eventId);
+  if (isEventAlreadyRSVPed) {
+    user.rsvpedEvents.pull(eventId);
+  } else {
+    user.rsvpedEvents.push(eventId);
+  }
+
+  console.log({ isEventAlreadyRSVPed, user });
+
+  await user.save();
+};
+
 export default {
   registerUser,
   loginUser,
@@ -143,4 +180,6 @@ export default {
   makeHost,
   leaveCommunity,
   dashboard,
+  getHostDashboard,
+  toggleRSVP,
 };
